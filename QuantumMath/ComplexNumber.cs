@@ -72,7 +72,6 @@ namespace QuantumMath
             double magnitude = Math.Sqrt(Math.Pow(obj.RealPart, 2) + Math.Pow(obj.ImaginaryPart, 2));
             double phase = Math.Tan(obj.ImaginaryPart / obj.RealPart);
             return new PolarCoordinate(magnitude, phase);
-
         }
 
         public PolarCoordinate ToPolarCoordinate()
