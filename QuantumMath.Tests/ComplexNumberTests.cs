@@ -57,6 +57,41 @@ namespace QuantumMath.Tests
             Assert.Equal(i2, c2.ImaginaryPart);
         }
 
+        [Fact]
+        public void GetConjugateTest()
+        {
+            var c0  = new ComplexNumber(1, 1);
+            var c1 = c0.GetConjugate();
+
+            Assert.Equal(1, c1.RealPart);
+            Assert.Equal(-1, c1.ImaginaryPart);
+        }
+
+        [Fact]  // Exer 1.2.4
+        public void ModulosTest()
+        {
+            var c0 = new ComplexNumber(4, -3);
+
+            Assert.Equal(5, c0.Modulos);
+        }
+
+        [Theory]
+        [InlineData(1,0,"1")]
+        [InlineData(-1, 0, "-1")]
+        [InlineData(0, 1, "i")]
+        [InlineData(0, -1, "-i")]
+        [InlineData(0, -2, "-2i")]
+        [InlineData(0, 2, "2i")]
+        [InlineData(1,1,"1+i")]
+        [InlineData(1, 2, "1+2i")]
+        [InlineData(-1, 2, "-1+2i")]
+        [InlineData(-1, -2, "-1-2i")]
+        public void ToStringTest(double real, double imaginary, string expected)
+        {
+            var c = new ComplexNumber(real, imaginary);
+            Assert.Equal(expected, c.ToString());
+        }
+
     }
 }
 

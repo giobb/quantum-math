@@ -11,6 +11,11 @@ namespace QuantumMath
         public double RealPart { get; }
         public double ImaginaryPart { get; }
 
+        public double Modulos 
+        { 
+            get => Math.Sqrt(Math.Pow(RealPart, 2) + Math.Pow(ImaginaryPart, 2));
+        }
+
         public ComplexNumber(double realPart, double imaginaryPart)
         {
             RealPart = realPart;
@@ -20,7 +25,6 @@ namespace QuantumMath
         public static ComplexNumber operator +(ComplexNumber lhs, ComplexNumber rhs) =>
              new ComplexNumber(lhs.RealPart + rhs.RealPart, lhs.ImaginaryPart + rhs.ImaginaryPart); 
         
-
         public static ComplexNumber operator -(ComplexNumber lhs, ComplexNumber rhs) =>
 
             new ComplexNumber(lhs.RealPart - rhs.RealPart, lhs.ImaginaryPart - rhs.ImaginaryPart);
@@ -38,14 +42,17 @@ namespace QuantumMath
             return new ComplexNumber(realPart, imaginaryPart);
         }
 
+        public ComplexNumber GetConjugate() =>
+            new ComplexNumber(RealPart, (-1.0) * ImaginaryPart);
+           
         public override string ToString() {
 
             static string GetValueWithSign(double value)
             {
                 if (value > 0)
-                    return $" + {value}";
+                    return $"+{value}";
                 if (value < 0)
-                    return $" - {value}";
+                    return $"-{value}";
                 return "";
             }
 

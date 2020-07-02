@@ -17,13 +17,17 @@ namespace QuantumMath
 
         public double Phase { get; set; }
 
-        public static PolarCoordinate operator + (PolarCoordinate lhs, PolarCoordinate rhs) => throw new NotImplementedException();
+        public static PolarCoordinate operator + (PolarCoordinate lhs, PolarCoordinate rhs)
+            => throw new NotImplementedException();
 
-        public static PolarCoordinate operator -(PolarCoordinate lhs, PolarCoordinate rhs) => throw new NotImplementedException();
+        public static PolarCoordinate operator -(PolarCoordinate lhs, PolarCoordinate rhs) 
+            => throw new NotImplementedException();
 
-        public static PolarCoordinate operator * (PolarCoordinate lhs, PolarCoordinate rhs) => throw new NotImplementedException();
+        public static PolarCoordinate operator * (PolarCoordinate lhs, PolarCoordinate rhs) 
+            => throw new NotImplementedException();
 
-        public static PolarCoordinate operator /(PolarCoordinate lhs, PolarCoordinate rhs) => throw new NotImplementedException();
+        public static PolarCoordinate operator /(PolarCoordinate lhs, PolarCoordinate rhs) 
+            => throw new NotImplementedException();
 
         public override string ToString()
         {
