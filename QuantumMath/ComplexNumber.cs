@@ -2,7 +2,9 @@
 using System;
 using System.Data.Common;
 using System.IO;
+using System.Net.NetworkInformation;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices.WindowsRuntime;
 
 namespace QuantumMath
 {
@@ -47,20 +49,22 @@ namespace QuantumMath
            
         public override string ToString() {
 
-            static string GetValueWithSign(double value)
-            {
-                if (value > 0)
-                    return $"+{value}";
-                if (value < 0)
-                    return $"-{value}";
-                return "";
-            }
+            string real = RealPart == 0 ? "" : RealPart.ToString();
 
-            string real = GetValueWithSign(value: RealPart);
+            string imaginary = ImaginaryPart >= -1 && ImaginaryPart <= 1 ? "" : ImaginaryPart.ToString();
 
-            string imaginary = GetValueWithSign(value: ImaginaryPart);
+            string imaginarySign = "";
 
-            return ($"{real}{imaginary}").TrimStart('+');
+            if (ImaginaryPart == -1)
+                imaginarySign = "-";
+            else if (ImaginaryPart >= 1 && RealPart != 0)
+                imaginarySign = "+";
+
+            string i = ImaginaryPart != 0 ? "i" : ""; 
+
+            string retVal = $"{real}{imaginarySign}{imaginary}{i}";
+
+            return retVal;          
         }
 
         static PolarCoordinate ToPolarCoordinate(ComplexNumber obj)

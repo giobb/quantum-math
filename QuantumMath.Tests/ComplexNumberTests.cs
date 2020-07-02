@@ -76,13 +76,13 @@ namespace QuantumMath.Tests
         }
 
         [Theory]
-        [InlineData(1,0,"1")]
+        [InlineData(1, 0, "1")]
         [InlineData(-1, 0, "-1")]
         [InlineData(0, 1, "i")]
         [InlineData(0, -1, "-i")]
         [InlineData(0, -2, "-2i")]
         [InlineData(0, 2, "2i")]
-        [InlineData(1,1,"1+i")]
+        [InlineData(1, 1, "1+i")]
         [InlineData(1, 2, "1+2i")]
         [InlineData(-1, 2, "-1+2i")]
         [InlineData(-1, -2, "-1-2i")]
