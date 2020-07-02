@@ -8,7 +8,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 
 namespace QuantumMath
 {
-    public class ComplexNumber
+    public struct ComplexNumber
     {
         public double RealPart { get; }
         public double ImaginaryPart { get; }
@@ -67,7 +67,7 @@ namespace QuantumMath
             return retVal;          
         }
 
-        static PolarCoordinate ToPolarCoordinate(ComplexNumber obj)
+        static PolarCoordinate ToPolarCoordinate(ref ComplexNumber obj)
         {
             double magnitude = Math.Sqrt(Math.Pow(obj.RealPart, 2) + Math.Pow(obj.ImaginaryPart, 2));
             double phase = Math.Tan(obj.ImaginaryPart / obj.RealPart);
@@ -76,12 +76,12 @@ namespace QuantumMath
 
         public PolarCoordinate ToPolarCoordinate()
         {
-            return ToPolarCoordinate(this);
+            return ToPolarCoordinate(ref this);
         }
 
         public static explicit operator PolarCoordinate(ComplexNumber obj)
         {
-            return ToPolarCoordinate(obj);
+            return ToPolarCoordinate(ref obj);
         }
      
     }

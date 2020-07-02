@@ -5,7 +5,7 @@ using System.Text;
 
 namespace QuantumMath
 {
-    public class PolarCoordinate
+    public struct PolarCoordinate
     {
         public PolarCoordinate(double magnitude, double phase)
         {
