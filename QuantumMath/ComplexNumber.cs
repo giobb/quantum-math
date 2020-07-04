@@ -49,18 +49,22 @@ namespace QuantumMath
            
         public override string ToString() {
 
-            string real = RealPart == 0 ? "" : RealPart.ToString();
+            double roundedReal = Math.Round(RealPart);
+            double roundedImaginary = Math.Round(ImaginaryPart);
 
-            string imaginary = ImaginaryPart >= -1 && ImaginaryPart <= 1 ? "" : ImaginaryPart.ToString();
+            string real = roundedReal == 0 ? "" : roundedReal.ToString();
+
+            string imaginary = roundedImaginary >= -1 && roundedImaginary <= 1 ? "" :
+                roundedImaginary.ToString();
 
             string imaginarySign = "";
 
-            if (ImaginaryPart == -1)
+            if (roundedImaginary == -1)
                 imaginarySign = "-";
-            else if (ImaginaryPart >= 1 && RealPart != 0)
+            else if (roundedImaginary >= 1 && roundedReal != 0)
                 imaginarySign = "+";
 
-            string i = ImaginaryPart != 0 ? "i" : ""; 
+            string i = roundedImaginary != 0 ? "i" : ""; 
 
             string retVal = $"{real}{imaginarySign}{imaginary}{i}";
 
@@ -70,7 +74,11 @@ namespace QuantumMath
         static PolarCoordinate ToPolarCoordinate(ref ComplexNumber obj)
         {
             double magnitude = Math.Sqrt(Math.Pow(obj.RealPart, 2) + Math.Pow(obj.ImaginaryPart, 2));
-            double phase = Math.Tan(obj.ImaginaryPart / obj.RealPart);
+            // double phase = Math.Round(Math.Atan(obj.ImaginaryPart / obj.RealPart), MidpointRounding.ToEven);
+
+            double phase = Math.Atan(obj.ImaginaryPart / obj.RealPart);
+
+
             return new PolarCoordinate(magnitude, phase);
         }
 

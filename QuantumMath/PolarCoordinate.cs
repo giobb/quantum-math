@@ -1,27 +1,42 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using System.Text;
+using System.Threading;
 
 namespace QuantumMath
 {
     public struct PolarCoordinate
     {
-        public PolarCoordinate(double magnitude, double phase)
+        public PolarCoordinate(double modulos
+            , double phase)
         {
-            Magnitude = magnitude;
+            Modulos = modulos;
             Phase = phase;
         }
 
-        public double Magnitude { get;  }
+        public double Modulos { get;  }
 
-        public double Phase { get; set; }
+        /// <summary>
+        /// Gets the phase (angle) in degrees
+        /// </summary>
+        public double Phase { get; }
 
         public static PolarCoordinate operator + (PolarCoordinate lhs, PolarCoordinate rhs)
-            => throw new NotImplementedException();
+        {
+            var x = GetX(ref lhs) + GetX(ref rhs);
+            var y = GetY(ref lhs) + GetY(ref rhs);
+            var phase = Math.Tan(y / x);
+            var modulos = Math.Sqrt(x * x + y * y);
+            return new PolarCoordinate(phase: phase, modulos: modulos);
+        }
 
-        public static PolarCoordinate operator -(PolarCoordinate lhs, PolarCoordinate rhs) 
-            => throw new NotImplementedException();
+        public static PolarCoordinate operator -(PolarCoordinate lhs, PolarCoordinate rhs)
+        {
+            var reversedRhs = new PolarCoordinate(modulos: rhs.Modulos, phase: rhs.Phase + Math.PI);
+            return (lhs + reversedRhs);
+        }
 
         public static PolarCoordinate operator * (PolarCoordinate lhs, PolarCoordinate rhs) 
             => throw new NotImplementedException();
@@ -36,14 +51,21 @@ namespace QuantumMath
 
         static ComplexNumber ToComplexNumber(ref PolarCoordinate obj)
         {
-            throw new NotImplementedException();
+            var x = GetX(ref obj);
+            var y = GetY(ref obj);
+            return new ComplexNumber(realPart: x, imaginaryPart: y);
         }
 
-        public ComplexNumber ToComplexNumber() => throw new NotImplementedException();
+        static double GetX(ref PolarCoordinate obj)
+            => obj.Modulos* Math.Cos(obj.Phase);
 
-        public static explicit operator ComplexNumber(PolarCoordinate obj)
-        {
-            throw new NotImplementedException();
-        }
+        static double GetY(ref PolarCoordinate obj)
+            => obj.Modulos * Math.Sin(obj.Phase);
+
+        public ComplexNumber ToComplexNumber() => ToComplexNumber(ref this);
+
+        public static explicit operator ComplexNumber(PolarCoordinate obj) =>
+            ToComplexNumber(ref obj);
+            
     }
 }
