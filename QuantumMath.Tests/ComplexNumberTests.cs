@@ -20,14 +20,13 @@ namespace QuantumMath.Tests
             Assert.Equal(Phase.ZeroPI, pc0.Phase);
         }
 
-        [Theory]
-        [InlineData(-2, 0, 2, 180)]
-        public void ToPolarCoordinatConverter(double r0, double i0, double m0, double p0)
+        [Fact]
+        public void ToPolarCoordinatConverter()
         {
-            var c0 = new ComplexNumber(realPart: r0, imaginaryPart: i0);
+            var c0 = new ComplexNumber(realPart: -2, imaginaryPart: 0);
             var pc0 = (PolarCoordinate)c0;
-            Assert.Equal(m0, pc0.Modulos);
-            Assert.Equal(p0, pc0.Phase);
+            Assert.Equal(2, pc0.Modulos);
+            Assert.Equal(Phase.OnePI, pc0.Phase);
         }
 
         [Theory]

@@ -76,16 +76,18 @@ namespace QuantumMath.Tests
         }
 
         [Theory]
-        [InlineData(1, 1, 1, 1, 1, 1)]
-        public void DivisionOperatorTest(double m0, double p0, double m1, double p1,
-                                         double m2, double p2)
+        [InlineData(-1, 3, -1, -4, 0.7670, 3.7083)] // Sample 1.3.5
+        public void DivisionOperatorTest(double r0, double i0,
+                                         double r1, double i1,
+                                          double r2, double i2)
         {
-            var pc0 = new PolarCoordinate(m0, p0);
-            var pc1 = new PolarCoordinate(m1, p1);
-            var pc2 = pc0 / pc1;
-            Assert.Equal(m2, pc2.Modulos);
-            Assert.Equal(p2, pc2.Phase);
-        }
+            var pc0 = (new ComplexNumber(r0, i0)).ToPolarCoordinate();
+            var pc1 = (new ComplexNumber(r1, i1)).ToPolarCoordinate();
 
+            var pc2 = pc0 / pc1;
+            var cn = pc2.ToComplexNumber();
+            Assert.Equal(r2, Math.Round(cn.RealPart,4));
+            Assert.Equal(i2, Math.Round(cn.ImaginaryPart,4));
+        }
     }
 }
