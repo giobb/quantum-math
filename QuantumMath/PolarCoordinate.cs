@@ -27,7 +27,7 @@ namespace QuantumMath
         {
             var x = GetX(ref lhs) + GetX(ref rhs);
             var y = GetY(ref lhs) + GetY(ref rhs);
-            var phase = Math.Tan(y / x);
+            var phase = Math.Atan(y / x);
             var modulos = Math.Sqrt(x * x + y * y);
             return new PolarCoordinate(phase: phase, modulos: modulos);
         }
@@ -36,10 +36,12 @@ namespace QuantumMath
         {
             var reversedRhs = new PolarCoordinate(modulos: rhs.Modulos, phase: rhs.Phase + Math.PI);
             return (lhs + reversedRhs);
+           
         }
 
-        public static PolarCoordinate operator * (PolarCoordinate lhs, PolarCoordinate rhs) 
-            => throw new NotImplementedException();
+        public static PolarCoordinate operator *(PolarCoordinate lhs, PolarCoordinate rhs)
+            => new PolarCoordinate(modulos: lhs.Modulos * rhs.Modulos,
+                                     phase: lhs.Phase + rhs.Phase);
 
         public static PolarCoordinate operator /(PolarCoordinate lhs, PolarCoordinate rhs) 
             => throw new NotImplementedException();
