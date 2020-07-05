@@ -47,6 +47,12 @@ namespace QuantumMath
             => new PolarCoordinate(modulos: lhs.Modulos / rhs.Modulos,
                                      phase: lhs.Phase - rhs.Phase);
 
+        public static PolarCoordinate operator ^(PolarCoordinate lhs, double power)
+            => new PolarCoordinate(Math.Pow(lhs.Modulos, power), lhs.Phase * power);
+
+        public PolarCoordinate Pow(double power)
+         => new PolarCoordinate(Math.Pow(Modulos, power), Phase * power);
+
         public override string ToString()
         {
             return base.ToString();
