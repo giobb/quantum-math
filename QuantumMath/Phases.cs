@@ -51,5 +51,10 @@ namespace QuantumMath
         /// </summary>
         public const double OnePI = Math.PI;
 
+        /// <summary>
+        /// Radians equvalent of 306 degrees
+        /// </summary>
+        public const double TwoPI = 2 * Math.PI;
+
     }
 }
