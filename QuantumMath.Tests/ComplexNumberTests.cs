@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Security.Cryptography;
 using Xunit;
 
@@ -117,6 +118,48 @@ namespace QuantumMath.Tests
             Assert.Equal(expected, c.ToString());
         }
 
+        [Fact]
+        public void NthRootTest()
+        {
+            var cn = new ComplexNumber(1, 1);
+
+            var roots = cn.NthRoot(3).ToArray();
+
+            var cn0 = roots[0];
+            Assert.Equal(1.0842, Math.Round(cn0.RealPart, 4));
+            Assert.Equal(0.2905, Math.Round(cn0.ImaginaryPart, 4));
+
+            var cn1 = roots[1];
+            Assert.Equal(-0.7937, Math.Round(cn1.RealPart, 4));
+            Assert.Equal(0.7937, Math.Round(cn1.ImaginaryPart, 4));
+
+            var cn2 = roots[2];
+            Assert.Equal(-0.2905, Math.Round(cn2.RealPart, 4));
+            Assert.Equal(-1.0842, Math.Round(cn2.ImaginaryPart, 4));
+
+        }
+
+        [Fact]
+        public void PowerOperatorTest()
+        {
+            var pc0 = new ComplexNumber(1, -1);
+
+            var pc1 = pc0 ^ 5;
+
+            Assert.Equal(-4, Math.Round(pc1.RealPart, 4));
+            Assert.Equal(4, Math.Round(pc1.ImaginaryPart, 4));
+        }
+
+        [Fact]
+        public void PowTest()
+        {
+            var pc0 = new ComplexNumber(1, -1);
+
+            var pc1 = pc0.Pow(5);
+
+            Assert.Equal(-4, Math.Round(pc1.RealPart, 4));
+            Assert.Equal(4, Math.Round(pc1.ImaginaryPart, 4));
+        }
     }
 }
 

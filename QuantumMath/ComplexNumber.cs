@@ -1,17 +1,18 @@
 ﻿using Microsoft.VisualBasic.CompilerServices;
 using System;
+using System.Collections.Generic;
 using System.Data.Common;
 using System.IO;
 using System.Net.NetworkInformation;
 using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading;
 
 namespace QuantumMath
 {
     public struct ComplexNumber
     {
         public double RealPart { get; }
-        public double ImaginaryPart { get; }
+        public double ImaginaryPart { get;  }
 
         public double Modulos 
         { 
@@ -46,7 +47,26 @@ namespace QuantumMath
 
         public ComplexNumber GetConjugate() =>
             new ComplexNumber(RealPart, (-1.0) * ImaginaryPart);
-           
+
+        public static ComplexNumber operator ^(ComplexNumber lhs, uint power)
+        {
+            var temp = lhs.ToPolarCoordinate().Pow(power);
+            return temp.ToComplexNumber();
+        }
+
+        public ComplexNumber Pow(uint power)
+         => this ^ power;
+
+        public IEnumerable<ComplexNumber> NthRoot(uint root)
+        {
+            var pc = ToPolarCoordinate().NthRoot(root);
+            foreach(var p in pc)
+            {
+                yield return p.ToComplexNumber();
+            }
+            
+        }
+
         public override string ToString() {
 
             double roundedReal = Math.Round(RealPart,2);

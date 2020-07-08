@@ -58,9 +58,9 @@ namespace QuantumMath
             var convertedRoot = (double)root;
             var modulos = Math.Pow(Modulos, 1 / convertedRoot);
             double phase;
-            for (var i = 0; i < root; i++)
+            for (var k = 0; k < root; k++)
             {
-                phase = (Phase + i*QuantumMath.Phase.TwoPI) / convertedRoot;
+                phase = (Phase + k * QuantumMath.Phase.TwoPI) / convertedRoot;
                 yield return new PolarCoordinate(modulos, phase);
             }
         }

@@ -54,7 +54,7 @@ namespace QuantumMath
         /// <summary>
         /// Radians equvalent of 306 degrees
         /// </summary>
-        public const double TwoPI = 2 * Math.PI;
+        public const double TwoPI = 2.0D * Math.PI;
 
     }
 }

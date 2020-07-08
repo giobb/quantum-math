@@ -113,20 +113,23 @@ namespace QuantumMath.Tests
         }
 
         [Fact]
-        public void SqrtTest()
+        public void NthRootTest()
         {
             var pc0 = (new ComplexNumber(1, 1)).ToPolarCoordinate();
 
             var pc = pc0.NthRoot(3).ToArray();
 
-            Assert.Equal(1.0842, Math.Round(pc[0].Modulos,4));
-            Assert.Equal(0.2905, Math.Round(pc[0].Phase, 4));
+            var cn0 = pc[0].ToComplexNumber();
+            Assert.Equal(1.0842, Math.Round(cn0.RealPart,4));
+            Assert.Equal(0.2905, Math.Round(cn0.ImaginaryPart,  4));
 
-            Assert.Equal(-0.7937, Math.Round(pc[0].Modulos, 4));
-            Assert.Equal(0.7937, Math.Round(pc[0].Phase, 4));
+            var cn1 = pc[1].ToComplexNumber();
+            Assert.Equal(-0.7937, Math.Round(cn1.RealPart, 4));
+            Assert.Equal(0.7937, Math.Round(cn1.ImaginaryPart, 4));
 
-            Assert.Equal(-0.2905, Math.Round(pc[0].Modulos, 4));
-            Assert.Equal(-1.0842, Math.Round(pc[0].Phase, 4));
+            var cn2 = pc[2].ToComplexNumber();
+            Assert.Equal(-0.2905, Math.Round(cn2.RealPart, 4));
+            Assert.Equal(-1.0842, Math.Round(cn2.ImaginaryPart, 4));
 
         }
     }
