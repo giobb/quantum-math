@@ -17,8 +17,8 @@ namespace QuantumMath.Tests
         {
             var pc0 = new PolarCoordinate(2, Phase.OnePI);
             var pc2 = pc0.ToComplexNumber();
-            Assert.Equal(-2.0, Math.Round(pc2.RealPart));
-            Assert.Equal(0, Math.Round(pc2.ImaginaryPart));
+            Assert.Equal(-2.0, Math.Round(pc2.Real));
+            Assert.Equal(0, Math.Round(pc2.Imaginary));
         }
 
         [Fact] // Exam: 1.3.4
@@ -26,8 +26,8 @@ namespace QuantumMath.Tests
         {
             var pc0 = new PolarCoordinate(2, Phase.OnePI);
             var pc1 = (ComplexNumber)pc0;
-            Assert.Equal(-2.0, Math.Round(pc1.RealPart));
-            Assert.Equal(0, Math.Round(pc1.ImaginaryPart));
+            Assert.Equal(-2.0, Math.Round(pc1.Real));
+            Assert.Equal(0, Math.Round(pc1.Imaginary));
         }
 
         [Theory]
@@ -41,8 +41,8 @@ namespace QuantumMath.Tests
 
             var pc2 = pc0 + pc1;
             var cn = pc2.ToComplexNumber();
-            Assert.Equal(r2, Math.Round(cn.RealPart));
-            Assert.Equal(i2, Math.Round(cn.ImaginaryPart));
+            Assert.Equal(r2, Math.Round(cn.Real));
+            Assert.Equal(i2, Math.Round(cn.Imaginary));
         }
 
         [Theory]
@@ -56,8 +56,8 @@ namespace QuantumMath.Tests
 
             var pc2 = pc0 - pc1;
             var cn = pc2.ToComplexNumber();
-            Assert.Equal(r2, Math.Round(cn.RealPart));
-            Assert.Equal(i2, Math.Round(cn.ImaginaryPart));
+            Assert.Equal(r2, Math.Round(cn.Real));
+            Assert.Equal(i2, Math.Round(cn.Imaginary));
         }
 
         [Theory]
@@ -71,8 +71,8 @@ namespace QuantumMath.Tests
 
             var pc2 = pc0 * pc1;
             var cn = pc2.ToComplexNumber();
-            Assert.Equal(r2, Math.Round(cn.RealPart));
-            Assert.Equal(i2, Math.Round(cn.ImaginaryPart));
+            Assert.Equal(r2, Math.Round(cn.Real));
+            Assert.Equal(i2, Math.Round(cn.Imaginary));
         }
 
         [Theory]
@@ -96,8 +96,8 @@ namespace QuantumMath.Tests
             pc2 = pc0 / pc1;
             var cn = pc2.ToComplexNumber();
 
-            Assert.Equal(0, Math.Round(cn.RealPart, 4));
-            Assert.Equal(2, Math.Round(cn.ImaginaryPart, 4));
+            Assert.Equal(0, Math.Round(cn.Real, 4));
+            Assert.Equal(2, Math.Round(cn.Imaginary, 4));
         }
 
         [Fact]
@@ -108,8 +108,8 @@ namespace QuantumMath.Tests
             var pc1 = pc0 ^ 5;
             var cn0 = pc1.ToComplexNumber();
 
-            Assert.Equal(-4,Math.Round(cn0.RealPart,4));
-            Assert.Equal(4, Math.Round(cn0.ImaginaryPart,4));
+            Assert.Equal(-4,Math.Round(cn0.Real,4));
+            Assert.Equal(4, Math.Round(cn0.Imaginary,4));
         }
 
         [Fact]
@@ -120,16 +120,16 @@ namespace QuantumMath.Tests
             var pc = pc0.NthRoot(3).ToArray();
 
             var cn0 = pc[0].ToComplexNumber();
-            Assert.Equal(1.0842, Math.Round(cn0.RealPart,4));
-            Assert.Equal(0.2905, Math.Round(cn0.ImaginaryPart,  4));
+            Assert.Equal(1.0842, Math.Round(cn0.Real,4));
+            Assert.Equal(0.2905, Math.Round(cn0.Imaginary,  4));
 
             var cn1 = pc[1].ToComplexNumber();
-            Assert.Equal(-0.7937, Math.Round(cn1.RealPart, 4));
-            Assert.Equal(0.7937, Math.Round(cn1.ImaginaryPart, 4));
+            Assert.Equal(-0.7937, Math.Round(cn1.Real, 4));
+            Assert.Equal(0.7937, Math.Round(cn1.Imaginary, 4));
 
             var cn2 = pc[2].ToComplexNumber();
-            Assert.Equal(-0.2905, Math.Round(cn2.RealPart, 4));
-            Assert.Equal(-1.0842, Math.Round(cn2.ImaginaryPart, 4));
+            Assert.Equal(-0.2905, Math.Round(cn2.Real, 4));
+            Assert.Equal(-1.0842, Math.Round(cn2.Imaginary, 4));
 
         }
     }

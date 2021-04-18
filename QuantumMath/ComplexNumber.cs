@@ -1,52 +1,45 @@
-﻿using Microsoft.VisualBasic.CompilerServices;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Data.Common;
-using System.IO;
-using System.Net.NetworkInformation;
-using System.Runtime.CompilerServices;
-using System.Threading;
 
 namespace QuantumMath
 {
     public struct ComplexNumber
     {
-        public double RealPart { get; }
-        public double ImaginaryPart { get;  }
+        public double Real { get; }
+        public double Imaginary { get; }
 
-        public double Modulos 
-        { 
-            get => Math.Sqrt(Math.Pow(RealPart, 2) + Math.Pow(ImaginaryPart, 2));
+        public double Modulos
+        {
+            get => Math.Sqrt(Math.Pow(Real, 2) + Math.Pow(Imaginary, 2));
         }
 
         public ComplexNumber(double realPart, double imaginaryPart)
         {
-            RealPart = realPart;
-            ImaginaryPart = imaginaryPart;
+            Real = realPart;
+            Imaginary = imaginaryPart;
         }
 
         public static ComplexNumber operator +(ComplexNumber lhs, ComplexNumber rhs) =>
-             new ComplexNumber(lhs.RealPart + rhs.RealPart, lhs.ImaginaryPart + rhs.ImaginaryPart); 
-        
-        public static ComplexNumber operator -(ComplexNumber lhs, ComplexNumber rhs) =>
+             new(lhs.Real + rhs.Real, lhs.Imaginary + rhs.Imaginary);
 
-            new ComplexNumber(lhs.RealPart - rhs.RealPart, lhs.ImaginaryPart - rhs.ImaginaryPart);
-        
+        public static ComplexNumber operator -(ComplexNumber lhs, ComplexNumber rhs) =>
+            new(lhs.Real - rhs.Real, lhs.Imaginary - rhs.Imaginary);
+
 
         public static ComplexNumber operator *(ComplexNumber lhs, ComplexNumber rhs) =>
-            new ComplexNumber(realPart: (lhs.RealPart * rhs.RealPart) - (lhs.ImaginaryPart * rhs.ImaginaryPart),
-                              imaginaryPart: (lhs.RealPart * rhs.ImaginaryPart) + (lhs.ImaginaryPart * rhs.RealPart));
+            new ComplexNumber(realPart: (lhs.Real * rhs.Real) - (lhs.Imaginary * rhs.Imaginary),
+                              imaginaryPart: (lhs.Real * rhs.Imaginary) + (lhs.Imaginary * rhs.Real));
 
         public static ComplexNumber operator /(ComplexNumber lhs, ComplexNumber rhs)
         {
-            var denominator = Math.Pow(rhs.RealPart, 2) + Math.Pow(rhs.ImaginaryPart, 2);
-            var realPart = (rhs.RealPart * lhs.RealPart + rhs.ImaginaryPart * lhs.ImaginaryPart) / denominator;
-            var imaginaryPart = (rhs.RealPart * lhs.ImaginaryPart - lhs.RealPart * rhs.ImaginaryPart) / denominator;
+            var denominator = Math.Pow(rhs.Real, 2) + Math.Pow(rhs.Imaginary, 2);
+            var realPart = (rhs.Real * lhs.Real + rhs.Imaginary * lhs.Imaginary) / denominator;
+            var imaginaryPart = (rhs.Real * lhs.Imaginary - lhs.Real * rhs.Imaginary) / denominator;
             return new ComplexNumber(realPart, imaginaryPart);
         }
 
         public ComplexNumber GetConjugate() =>
-            new ComplexNumber(RealPart, (-1.0) * ImaginaryPart);
+            new(Real, (-1.0) * Imaginary);
 
         public static ComplexNumber operator ^(ComplexNumber lhs, uint power)
         {
@@ -60,17 +53,18 @@ namespace QuantumMath
         public IEnumerable<ComplexNumber> NthRoot(uint root)
         {
             var pc = ToPolarCoordinate().NthRoot(root);
-            foreach(var p in pc)
+            foreach (var p in pc)
             {
                 yield return p.ToComplexNumber();
             }
-            
+
         }
 
-        public override string ToString() {
+        public override string ToString()
+        {
 
-            double roundedReal = Math.Round(RealPart,2);
-            double roundedImaginary = Math.Round(ImaginaryPart,2);
+            double roundedReal = Math.Round(Real, 2);
+            double roundedImaginary = Math.Round(Imaginary, 2);
 
             string real = roundedReal == 0 ? "" : roundedReal.ToString();
 
@@ -84,18 +78,18 @@ namespace QuantumMath
             else if (roundedImaginary >= 1 && roundedReal != 0)
                 imaginarySign = "+";
 
-            string i = roundedImaginary != 0 ? "i" : ""; 
+            string i = roundedImaginary != 0 ? "i" : "";
 
             string retVal = $"{real}{imaginarySign}{imaginary}{i}";
 
-            return retVal;          
+            return retVal;
         }
 
         static PolarCoordinate ToPolarCoordinate(ref ComplexNumber obj)
         {
-            double magnitude = Math.Sqrt(Math.Pow(obj.RealPart, 2) + Math.Pow(obj.ImaginaryPart, 2));
+            double magnitude = Math.Sqrt(Math.Pow(obj.Real, 2) + Math.Pow(obj.Imaginary, 2));
 
-            double phase = Math.Atan2(obj.ImaginaryPart,obj.RealPart);
+            double phase = Math.Atan2(obj.Imaginary, obj.Real);
 
             return new PolarCoordinate(magnitude, phase);
         }
@@ -109,6 +103,6 @@ namespace QuantumMath
         {
             return ToPolarCoordinate(ref obj);
         }
-     
+
     }
 }

@@ -40,8 +40,8 @@ namespace QuantumMath.Tests
             var c1 = new ComplexNumber(r1, i1);
 
             var c2 = c0 + c1;
-            Assert.Equal(r2, c2.RealPart);
-            Assert.Equal(i2, c2.ImaginaryPart);
+            Assert.Equal(r2, c2.Real);
+            Assert.Equal(i2, c2.Imaginary);
         }
 
         [Theory]
@@ -52,8 +52,8 @@ namespace QuantumMath.Tests
             var c1 = new ComplexNumber(r1, i1);
 
             var c2 = c0 - c1;
-            Assert.Equal(r2, c2.RealPart);
-            Assert.Equal(i2, c2.ImaginaryPart);
+            Assert.Equal(r2, c2.Real);
+            Assert.Equal(i2, c2.Imaginary);
         }
 
         [Theory]
@@ -66,8 +66,8 @@ namespace QuantumMath.Tests
             var c1 = new ComplexNumber(r1, i1);
 
             var c2 = c0 * c1;
-            Assert.Equal(r2, c2.RealPart);
-            Assert.Equal(i2, c2.ImaginaryPart);
+            Assert.Equal(r2, c2.Real);
+            Assert.Equal(i2, c2.Imaginary);
         }
 
         [Theory]
@@ -79,8 +79,8 @@ namespace QuantumMath.Tests
             var c1 = new ComplexNumber(r1, i1);
 
             var c2 = c0 / c1;
-            Assert.Equal(r2, c2.RealPart);
-            Assert.Equal(i2, c2.ImaginaryPart);
+            Assert.Equal(r2, c2.Real);
+            Assert.Equal(i2, c2.Imaginary);
         }
 
         [Fact]
@@ -89,8 +89,8 @@ namespace QuantumMath.Tests
             var c0  = new ComplexNumber(1, 1);
             var c1 = c0.GetConjugate();
 
-            Assert.Equal(1, c1.RealPart);
-            Assert.Equal(-1, c1.ImaginaryPart);
+            Assert.Equal(1, c1.Real);
+            Assert.Equal(-1, c1.Imaginary);
         }
 
         [Fact]  // Exer 1.2.4
@@ -126,16 +126,16 @@ namespace QuantumMath.Tests
             var roots = cn.NthRoot(3).ToArray();
 
             var cn0 = roots[0];
-            Assert.Equal(1.0842, Math.Round(cn0.RealPart, 4));
-            Assert.Equal(0.2905, Math.Round(cn0.ImaginaryPart, 4));
+            Assert.Equal(1.0842, Math.Round(cn0.Real, 4));
+            Assert.Equal(0.2905, Math.Round(cn0.Imaginary, 4));
 
             var cn1 = roots[1];
-            Assert.Equal(-0.7937, Math.Round(cn1.RealPart, 4));
-            Assert.Equal(0.7937, Math.Round(cn1.ImaginaryPart, 4));
+            Assert.Equal(-0.7937, Math.Round(cn1.Real, 4));
+            Assert.Equal(0.7937, Math.Round(cn1.Imaginary, 4));
 
             var cn2 = roots[2];
-            Assert.Equal(-0.2905, Math.Round(cn2.RealPart, 4));
-            Assert.Equal(-1.0842, Math.Round(cn2.ImaginaryPart, 4));
+            Assert.Equal(-0.2905, Math.Round(cn2.Real, 4));
+            Assert.Equal(-1.0842, Math.Round(cn2.Imaginary, 4));
 
         }
 
@@ -146,8 +146,8 @@ namespace QuantumMath.Tests
 
             var pc1 = pc0 ^ 5;
 
-            Assert.Equal(-4, Math.Round(pc1.RealPart, 4));
-            Assert.Equal(4, Math.Round(pc1.ImaginaryPart, 4));
+            Assert.Equal(-4, Math.Round(pc1.Real, 4));
+            Assert.Equal(4, Math.Round(pc1.Imaginary, 4));
         }
 
         [Fact]
@@ -157,8 +157,8 @@ namespace QuantumMath.Tests
 
             var pc1 = pc0.Pow(5);
 
-            Assert.Equal(-4, Math.Round(pc1.RealPart, 4));
-            Assert.Equal(4, Math.Round(pc1.ImaginaryPart, 4));
+            Assert.Equal(-4, Math.Round(pc1.Real, 4));
+            Assert.Equal(4, Math.Round(pc1.Imaginary, 4));
         }
     }
 }

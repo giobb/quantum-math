@@ -40,18 +40,18 @@ namespace QuantumMath
         }
 
         public static PolarCoordinate operator *(PolarCoordinate lhs, PolarCoordinate rhs)
-            => new PolarCoordinate(modulos: lhs.Modulos * rhs.Modulos,
+            => new (modulos: lhs.Modulos * rhs.Modulos,
                                      phase: lhs.Phase + rhs.Phase);
 
         public static PolarCoordinate operator /(PolarCoordinate lhs, PolarCoordinate rhs)
-            => new PolarCoordinate(modulos: lhs.Modulos / rhs.Modulos,
+            => new (modulos: lhs.Modulos / rhs.Modulos,
                                      phase: lhs.Phase - rhs.Phase);
 
         public static PolarCoordinate operator ^(PolarCoordinate lhs, uint power)
-            => new PolarCoordinate(Math.Pow(lhs.Modulos, power), lhs.Phase * power);
+            => new (Math.Pow(lhs.Modulos, power), lhs.Phase * power);
 
         public PolarCoordinate Pow(uint power)
-         => new PolarCoordinate(Math.Pow(Modulos, power), Phase * power);
+         => new (Math.Pow(Modulos, power), Phase * power);
 
         public IEnumerable<PolarCoordinate> NthRoot(uint root)
         {
