@@ -8,7 +8,7 @@ namespace QuantumMath
     {
         static public Matrix Tensor(params Matrix[] matrices)
         {
-
+            throw new NotImplementedException();
         }
     }
 }

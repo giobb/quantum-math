@@ -160,6 +160,26 @@ namespace QuantumMath.Tests
             Assert.Equal(-4, Math.Round(pc1.Real, 4));
             Assert.Equal(4, Math.Round(pc1.Imaginary, 4));
         }
+
+        [Theory]
+        [InlineData(0d, 0d)]
+        [InlineData(3d, -2.5d)]
+        public void EqualityOperatorTest(double real, double imaginary)
+        {
+            var c0 = new ComplexNumber(real, imaginary);
+            var c1 = new ComplexNumber(real, imaginary);
+
+            Assert.True(c0 == c1);
+        }
+
+        [Fact]
+        public void InequalityOperatorTest()
+        {
+            var c0 = new ComplexNumber(0d, 0d);
+            var c1 = new ComplexNumber(1d, 0d);
+
+            Assert.True(c0 != c1);
+        }
     }
 }
 

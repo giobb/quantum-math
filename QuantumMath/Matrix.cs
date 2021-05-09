@@ -11,10 +11,10 @@ namespace QuantumMath
     {
         readonly ComplexNumber[,] _array;
 
-        public Matrix(uint height, uint length)
+        public Matrix(uint rows, uint cols)
         {
-            Rows = height;
-            Cols = length;
+            Rows = rows;
+            Cols = cols;
 
             _array = new ComplexNumber[Rows, Cols];
 
@@ -34,14 +34,27 @@ namespace QuantumMath
 
         public bool IsHermitian() => throw new NotImplementedException();
 
-        public Matrix GetTranspose() => throw new NotImplementedException();
+        public Matrix GetTranspose()
+        {
+            Matrix result = new Matrix(Cols, Rows);
+
+            for (uint iRow = 0; iRow < Rows; iRow++)
+            {
+                for (uint iCol = 0; iCol < Cols; iCol++)
+                {
+                    result[iCol, iRow] = this[iRow, iCol];
+                }
+            }
+
+            return result;
+        }
 
         public Matrix GetAdjoint() => throw new NotImplementedException();
 
-        public ComplexNumber this[uint m, uint n]
+        public ComplexNumber this[uint row, uint col]
         {
-            get => _array[m, n];
-            set => _array[m, n] = value;
+            get => _array[row, col];
+            set => _array[row, col] = value;
         }
 
         static void ValidateAddCompatibility(Matrix lhs, Matrix rhs)
@@ -95,26 +108,26 @@ namespace QuantumMath
         {
             ValidateMultiplicationCompatibility(lhs, rhs);
 
-            var resultant = new Matrix(height: lhs.Rows, length: rhs.Cols);
+            var resultant = new Matrix(rows: lhs.Rows, cols: rhs.Cols);
 
             // Do something here
             for (uint row = 0; row < lhs.Rows; row++)
             {
                 for (uint col=0; col < rhs.Cols; col++)
                 {
-                    resultant[row, col] = getColRowSum(lhs, rhs, row, col, lhs.Rows);
+                    resultant[row, col] = getColRowSum(lhs, rhs, row, col, lhs.Cols);
                 }
             }
 
             return resultant;
 
-            static ComplexNumber getColRowSum(Matrix lhs, Matrix rhs, uint rows, uint cols, uint length)
+            static ComplexNumber getColRowSum(Matrix lhs, Matrix rhs, uint iRow, uint iCol, uint length)
             {
-                ComplexNumber result = new ComplexNumber();
+                var result = new ComplexNumber();
 
                 for (uint i = 0; i < length; i++)
                 {
-                    result += (lhs[rows, i] * rhs[i, cols]);
+                    result += (lhs[iRow, i] * rhs[i, iCol]);
                 }
 
                 return result;
