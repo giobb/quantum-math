@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30114.128
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuantumMath", "QuantumMath\QuantumMath.csproj", "{78FB8E46-FB81-4B8B-92ED-8C4027969CA6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuantumMath.Tests", "QuantumMath.Tests\QuantumMath.Tests.csproj", "{5A3CD037-4E54-47C0-896F-6ABF2D6E6FC7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuantumMath.Tests", "QuantumMath.Tests\QuantumMath.Tests.csproj", "{5A3CD037-4E54-47C0-896F-6ABF2D6E6FC7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,5 +1,5 @@
 ﻿using Xunit;
-using static QuantumMath.Gates;
+using static QuantumMath.Quantum.Gate;
 
 namespace QuantumMath.Tests
 {

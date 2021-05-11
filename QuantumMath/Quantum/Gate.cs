@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Net.NetworkInformation;
 using System.Text;
 
-namespace QuantumMath
+namespace QuantumMath.Quantum
 {
-    static public class Gates
+    static public class Gate
     {
         public static Matrix I
         {
