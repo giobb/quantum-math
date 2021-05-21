@@ -6,6 +6,7 @@ namespace QuantumMath.Quantum
 {
     public class Circuit
     {
-
+        IList<Qubit> _qubits = new List<Qubit>();
+        Matrix _state;
     }
 }

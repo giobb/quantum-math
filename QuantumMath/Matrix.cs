@@ -17,7 +17,6 @@ namespace QuantumMath
             Cols = cols;
 
             _array = new ComplexNumber[Rows, Cols];
-
         }
 
         public uint Rows { get; }
@@ -134,9 +133,13 @@ namespace QuantumMath
             }
         }
 
-        public Matrix TensorMultiply(Matrix rhs)
+        public Matrix Tensor(Matrix rhs)
         {
-            throw new NotImplementedException();
+            Matrix result = new(Rows * rhs.Rows, Cols * rhs.Cols);
+
+
+
+            return result;
         }
     }
 }

@@ -20,14 +20,14 @@ namespace QuantumMath
         }
 
         public static ComplexNumber operator +(ComplexNumber lhs, ComplexNumber rhs) =>
-             new ComplexNumber(lhs.Real + rhs.Real, lhs.Imaginary + rhs.Imaginary);
+             new(lhs.Real + rhs.Real, lhs.Imaginary + rhs.Imaginary);
 
         public static ComplexNumber operator -(ComplexNumber lhs, ComplexNumber rhs) =>
-            new ComplexNumber(lhs.Real - rhs.Real, lhs.Imaginary - rhs.Imaginary);
+            new(lhs.Real - rhs.Real, lhs.Imaginary - rhs.Imaginary);
 
 
         public static ComplexNumber operator *(ComplexNumber lhs, ComplexNumber rhs) =>
-            new ComplexNumber(realPart: (lhs.Real * rhs.Real) - (lhs.Imaginary * rhs.Imaginary),
+            new(realPart: (lhs.Real * rhs.Real) - (lhs.Imaginary * rhs.Imaginary),
                               imaginaryPart: (lhs.Real * rhs.Imaginary) + (lhs.Imaginary * rhs.Real));
 
         public static ComplexNumber operator /(ComplexNumber lhs, ComplexNumber rhs)
@@ -39,7 +39,7 @@ namespace QuantumMath
         }
 
         public ComplexNumber GetConjugate() =>
-            new ComplexNumber(Real, (-1.0) * Imaginary);
+            new(Real, (-1.0) * Imaginary);
 
         public static ComplexNumber operator ^(ComplexNumber lhs, uint power)
         {
@@ -100,15 +100,10 @@ namespace QuantumMath
             return new PolarCoordinate(magnitude, phase);
         }
 
-        public PolarCoordinate ToPolarCoordinate()
-        {
-            return ToPolarCoordinate(ref this);
-        }
+        public PolarCoordinate ToPolarCoordinate() => ToPolarCoordinate(ref this);
 
         public static explicit operator PolarCoordinate(ComplexNumber obj)
-        {
-            return ToPolarCoordinate(ref obj);
-        }
+            => ToPolarCoordinate(ref obj);
 
         public override bool Equals(object obj)
         {

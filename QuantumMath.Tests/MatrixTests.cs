@@ -1,4 +1,7 @@
-﻿using Xunit;
+﻿using QuantumMath.Quantum;
+using System.Reflection.Metadata;
+using Xunit;
+using Xunit.Sdk;
 using static QuantumMath.Quantum.Gate;
 
 namespace QuantumMath.Tests
@@ -48,7 +51,60 @@ namespace QuantumMath.Tests
             Assert.Equal(0d, res[0, 0].Imaginary);
             Assert.Equal(0d, res[1, 0].Real);
             Assert.Equal(0d, res[1, 0].Imaginary);
+        }
 
+        [Fact]
+        public void CNOT00Test()
+        {
+            var qbit0 = new Matrix(2, 1);
+            qbit0[0, 0] = new ComplexNumber(1D, 0D);
+            qbit0[1, 0] = new ComplexNumber();
+
+            var qbit1 = new Matrix(2, 1);
+            qbit1[0, 0] = new ComplexNumber(1D, 0D);
+            qbit1[1, 0] = new ComplexNumber();
+
+            var res = CNot * qbit0.Tensor(qbit1);
+            Assert.True(1 == res.Cols);
+            Assert.True(4 == res.Rows);
+
+            Assert.Equal(1d, res[0, 0].Real);
+            Assert.Equal(0d, res[0, 0].Imaginary);
+            Assert.Equal(0d, res[1, 0].Real);
+            Assert.Equal(0d, res[1, 0].Imaginary);
+                                    
+            Assert.Equal(0d, res[2, 0].Real);
+            Assert.Equal(0d, res[2, 0].Imaginary);
+            Assert.Equal(0d, res[3, 0].Real);
+            Assert.Equal(0d, res[3, 0].Imaginary);
+        }
+
+        [Fact]
+        public void TensorTest()
+        {
+            var matrix0 = new Matrix(2, 1);
+            matrix0[0, 0] = new ComplexNumber(1, 0);
+            matrix0[1, 0] = new ComplexNumber();
+
+            var matrix1 = new Matrix(2, 1);
+            matrix1[0, 0] = new ComplexNumber(1, 0);
+            matrix1[1, 0] = new ComplexNumber();
+
+            var res0 = matrix0.Tensor(matrix1);
+
+            Assert.Equal(1d, res0[0, 0].Real);
+            Assert.Equal(0d, res0[0, 0].Imaginary);
+            Assert.Equal(0d, res0[1, 0].Real);
+            Assert.Equal(0d, res0[1, 0].Imaginary);
+
+            var matrix2 = new Matrix(2,1);
+            matrix1[0, 0] = new ComplexNumber(1D, 0D);
+            matrix1[1, 0] = new ComplexNumber();
+
+            var res1 = res0.Tensor(matrix2);
+
+            Assert.True(1==res1.Cols);
+            Assert.True(8==res1.Rows);
         }
 
     }

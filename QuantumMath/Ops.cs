@@ -6,9 +6,9 @@ namespace QuantumMath
 {
     static class Ops
     {
-        static public Matrix Tensor(params Matrix[] matrices)
+        static public Matrix Tensor(Matrix lhs, Matrix rhs)
         {
-            throw new NotImplementedException();
+            return null;
         }
     }
 }
