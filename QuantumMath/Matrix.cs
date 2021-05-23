@@ -135,9 +135,19 @@ namespace QuantumMath
 
         public Matrix Tensor(Matrix rhs)
         {
-            Matrix result = new(Rows * rhs.Rows, Cols * rhs.Cols);
+            var result = new Matrix(Rows * rhs.Rows, Cols * rhs.Cols);
 
-
+            for (uint i = 0; i < Rows; i++)
+                for (uint j = 0; j < Cols; j++)
+                    for (uint k = 0; k < rhs.Rows; k++)
+                        for (uint l = 0; l < rhs.Cols; l++)
+                        {
+                            var m = rhs.Rows * i + k;
+                            var n = rhs.Cols * j + l;
+                            result[m, n] = this[i, j] * rhs[k, l];
+                        }
+                
+            
 
             return result;
         }

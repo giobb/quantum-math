@@ -9,13 +9,14 @@ namespace QuantumMath.Quantum
     public class Qubit
     {
 
-        readonly IList<Matrix> _appliedGates;
-        Matrix _theQubit;
+        readonly Stack<Matrix> _appliedGates;
+        Matrix _state;
 
         public Qubit()
         {
-            _appliedGates = new List<Matrix>();
-            _theQubit = new Matrix(2, 1);
+            _appliedGates = new Stack<Matrix>();
+            _state = new Matrix(2, 1);
+            Reset();
         }
 
         public IEnumerable<Matrix> AppliedGates
@@ -23,16 +24,28 @@ namespace QuantumMath.Quantum
             get => _appliedGates.AsEnumerable();
         }
         
-        public void Apply(Matrix gate)
+        public void Apply(params Matrix[] gates)
         {
-            _theQubit = gate * _theQubit;
-            _appliedGates.Add(gate);
+            foreach (Matrix g in gates)
+            {
+                _state = g * _state;       
+                _appliedGates.Push(g);
+            }
         }
 
         public void Undo()
         {
-            _theQubit = _appliedGates[_appliedGates.Count - 1] *  _theQubit;
-            _appliedGates.RemoveAt(_appliedGates.Count - 1);
+            _state = _appliedGates.Pop() *  _state;
         }
+
+        public void Reset()
+        {
+            _state[0, 0] = new ComplexNumber(1, 0);
+            _appliedGates.Clear();
+        }
+
+        public override string ToString()
+            => _state[0, 0].Real == 1D ? "|0>" : "|1>";
+
     }
 }

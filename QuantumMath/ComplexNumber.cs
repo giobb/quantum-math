@@ -20,14 +20,14 @@ namespace QuantumMath
         }
 
         public static ComplexNumber operator +(ComplexNumber lhs, ComplexNumber rhs) =>
-             new(lhs.Real + rhs.Real, lhs.Imaginary + rhs.Imaginary);
+             new ComplexNumber(lhs.Real + rhs.Real, lhs.Imaginary + rhs.Imaginary);
 
         public static ComplexNumber operator -(ComplexNumber lhs, ComplexNumber rhs) =>
-            new(lhs.Real - rhs.Real, lhs.Imaginary - rhs.Imaginary);
+            new ComplexNumber(lhs.Real - rhs.Real, lhs.Imaginary - rhs.Imaginary);
 
 
         public static ComplexNumber operator *(ComplexNumber lhs, ComplexNumber rhs) =>
-            new(realPart: (lhs.Real * rhs.Real) - (lhs.Imaginary * rhs.Imaginary),
+            new ComplexNumber(realPart: (lhs.Real * rhs.Real) - (lhs.Imaginary * rhs.Imaginary),
                               imaginaryPart: (lhs.Real * rhs.Imaginary) + (lhs.Imaginary * rhs.Real));
 
         public static ComplexNumber operator /(ComplexNumber lhs, ComplexNumber rhs)
@@ -39,7 +39,7 @@ namespace QuantumMath
         }
 
         public ComplexNumber GetConjugate() =>
-            new(Real, (-1.0) * Imaginary);
+            new ComplexNumber(Real, (-1.0) * Imaginary);
 
         public static ComplexNumber operator ^(ComplexNumber lhs, uint power)
         {

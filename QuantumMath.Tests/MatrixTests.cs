@@ -90,21 +90,42 @@ namespace QuantumMath.Tests
             matrix1[0, 0] = new ComplexNumber(1, 0);
             matrix1[1, 0] = new ComplexNumber();
 
+            // |00>
             var res0 = matrix0.Tensor(matrix1);
 
-            Assert.Equal(1d, res0[0, 0].Real);
-            Assert.Equal(0d, res0[0, 0].Imaginary);
-            Assert.Equal(0d, res0[1, 0].Real);
-            Assert.Equal(0d, res0[1, 0].Imaginary);
+            Assert.Equal(1, res0[0, 0].Real);
+            Assert.Equal(0, res0[0, 0].Imaginary);
+            Assert.Equal(0, res0[1, 0].Real);
+            Assert.Equal(0, res0[1, 0].Imaginary);
+            Assert.Equal(0, res0[2, 0].Real);
+            Assert.Equal(0, res0[2, 0].Imaginary);
+            Assert.Equal(0, res0[3, 0].Real);
+            Assert.Equal(0, res0[3, 0].Imaginary);
 
-            var matrix2 = new Matrix(2,1);
-            matrix1[0, 0] = new ComplexNumber(1D, 0D);
-            matrix1[1, 0] = new ComplexNumber();
+            var matrix2 = new Matrix(2, 1);
+            matrix2[0, 0] = new ComplexNumber();
+            matrix2[1, 0] = new ComplexNumber(1,0);
 
+            // |001>
             var res1 = res0.Tensor(matrix2);
 
-            Assert.True(1==res1.Cols);
-            Assert.True(8==res1.Rows);
+            Assert.Equal(0, res1[0, 0].Real);
+            Assert.Equal(0, res1[0, 0].Imaginary);
+            Assert.Equal(1, res1[1, 0].Real);
+            Assert.Equal(0, res1[1, 0].Imaginary);
+            Assert.Equal(0, res1[2, 0].Real);
+            Assert.Equal(0, res1[2, 0].Imaginary);
+            Assert.Equal(0, res1[3, 0].Real);
+            Assert.Equal(0, res1[3, 0].Imaginary);
+            Assert.Equal(0, res1[4, 0].Real);
+            Assert.Equal(0, res1[4, 0].Imaginary);
+            Assert.Equal(0, res1[5, 0].Real);
+            Assert.Equal(0, res1[5, 0].Imaginary);
+            Assert.Equal(0, res1[6, 0].Real);
+            Assert.Equal(0, res1[6, 0].Imaginary);
+            Assert.Equal(0, res1[7, 0].Real);
+            Assert.Equal(0, res1[7, 0].Imaginary);
+
         }
 
     }
