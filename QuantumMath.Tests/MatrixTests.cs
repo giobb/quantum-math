@@ -2,7 +2,7 @@
 using System.Reflection.Metadata;
 using Xunit;
 using Xunit.Sdk;
-using static QuantumMath.Quantum.Gate;
+using static QuantumMath.Quantum.Gates;
 
 namespace QuantumMath.Tests
 {
@@ -16,16 +16,16 @@ namespace QuantumMath.Tests
         public void GetTranspose()
         {
             var target = new Matrix(1,1);
-            target[0, 0] = new ComplexNumber(1, 2);
+            target[0, 0] = ComplexNumber.CreateInstance(1, 2);
         }
 
 
         [Fact]
         public void MultiplyXby1Qubit()
         {
-            var qbit = new Matrix(2, 1);
-            qbit[0,0] = new ComplexNumber(1D, 0D);
-            qbit[1,0] = new ComplexNumber(); 
+            var qbit = new Matrix(2,1);
+            qbit[0, 0] = ComplexNumber.Zero;
+            qbit[1, 0] = ComplexNumber.One;
 
             var res = X * qbit;
 
@@ -35,15 +35,14 @@ namespace QuantumMath.Tests
             Assert.Equal(0d, res[0, 0].Imaginary);
             Assert.Equal(1d, res[1, 0].Real);
             Assert.Equal(0d, res[1, 0].Imaginary);
-
         }
 
         [Fact]
         public void MultiplyIBy1Qubit()
         {
             var qbit = new Matrix(2, 1);
-            qbit[0, 0] = new ComplexNumber(1D, 0D);
-            qbit[1, 0] = new ComplexNumber(); // 0 + 0i
+            qbit[0, 0] = ComplexNumber.One;
+            qbit[1, 0] = ComplexNumber.Zero; // 0 + 0i
 
             var res = I * qbit;
 
@@ -57,14 +56,14 @@ namespace QuantumMath.Tests
         public void CNOT00Test()
         {
             var qbit0 = new Matrix(2, 1);
-            qbit0[0, 0] = new ComplexNumber(1D, 0D);
-            qbit0[1, 0] = new ComplexNumber();
+            qbit0[0, 0] = ComplexNumber.One;
+            qbit0[1, 0] = ComplexNumber.Zero;
 
             var qbit1 = new Matrix(2, 1);
-            qbit1[0, 0] = new ComplexNumber(1D, 0D);
-            qbit1[1, 0] = new ComplexNumber();
+            qbit1[0, 0] = ComplexNumber.One;
+            qbit1[1, 0] = ComplexNumber.Zero;
 
-            var res = CNot * qbit0.Tensor(qbit1);
+            var res = CNot * Ops.Tensor(qbit0,qbit1);
             Assert.True(1 == res.Cols);
             Assert.True(4 == res.Rows);
 
@@ -82,16 +81,16 @@ namespace QuantumMath.Tests
         [Fact]
         public void TensorTest()
         {
-            var matrix0 = new Matrix(2, 1);
-            matrix0[0, 0] = new ComplexNumber(1, 0);
-            matrix0[1, 0] = new ComplexNumber();
+            Matrix matrix0 = new Matrix(2, 1);
+            matrix0[0, 0] = ComplexNumber.One;
+            matrix0[1, 0] = ComplexNumber.Zero;
 
             var matrix1 = new Matrix(2, 1);
-            matrix1[0, 0] = new ComplexNumber(1, 0);
-            matrix1[1, 0] = new ComplexNumber();
+            matrix1[0, 0] = ComplexNumber.One;
+            matrix1[1, 0] = ComplexNumber.Zero;
 
             // |00>
-            var res0 = matrix0.Tensor(matrix1);
+            var res0 =  Ops.Tensor(matrix0,matrix1);
 
             Assert.Equal(1, res0[0, 0].Real);
             Assert.Equal(0, res0[0, 0].Imaginary);
@@ -103,11 +102,11 @@ namespace QuantumMath.Tests
             Assert.Equal(0, res0[3, 0].Imaginary);
 
             var matrix2 = new Matrix(2, 1);
-            matrix2[0, 0] = new ComplexNumber();
-            matrix2[1, 0] = new ComplexNumber(1,0);
+            matrix2[0, 0] = ComplexNumber.Zero;
+            matrix2[1, 0] = ComplexNumber.One;
 
             // |001>
-            var res1 = res0.Tensor(matrix2);
+            var res1 = Ops.Tensor(res0,matrix2);
 
             Assert.Equal(0, res1[0, 0].Real);
             Assert.Equal(0, res1[0, 0].Imaginary);

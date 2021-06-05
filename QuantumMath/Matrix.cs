@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO.MemoryMappedFiles;
+using System.Linq;
 using System.Numerics;
 using System.Text;
 
@@ -17,6 +18,26 @@ namespace QuantumMath
             Cols = cols;
 
             _array = new ComplexNumber[Rows, Cols];
+        }
+
+        public Matrix(params double[][] rowValues)
+        {
+            if (rowValues.Select(o => o.GetLength(1)).Distinct().Count() > 1)
+                throw new ArgumentException("Diferrent sizes");
+
+            Rows = (uint)rowValues.GetLength(0);
+            Cols = (uint)rowValues.GetLength(1);
+
+            _array = new ComplexNumber[Rows, Cols];
+
+            // TODO: Create rows here using new
+            for(int i = 0; i<rowValues.GetLength(0); i++)
+            {
+                var row = rowValues[i];
+                var arrCN = ComplexNumber.CreateInstances(row);
+                for (var j = 0; j < arrCN.Length; j++)
+                    _array[i, j] = arrCN[j];
+            }            
         }
 
         public uint Rows { get; }
@@ -131,25 +152,6 @@ namespace QuantumMath
 
                 return result;
             }
-        }
-
-        public Matrix Tensor(Matrix rhs)
-        {
-            var result = new Matrix(Rows * rhs.Rows, Cols * rhs.Cols);
-
-            for (uint i = 0; i < Rows; i++)
-                for (uint j = 0; j < Cols; j++)
-                    for (uint k = 0; k < rhs.Rows; k++)
-                        for (uint l = 0; l < rhs.Cols; l++)
-                        {
-                            var m = rhs.Rows * i + k;
-                            var n = rhs.Cols * j + l;
-                            result[m, n] = this[i, j] * rhs[k, l];
-                        }
-                
-            
-
-            return result;
-        }
+        }       
     }
 }

@@ -6,43 +6,50 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace QuantumMath.Quantum
 {
-    public class Qubit
+    public enum QubitValue
     {
+        Zero,
+        One
+    }
 
-        readonly Stack<Matrix> _appliedGates;
-        Matrix _state;
-
-        public Qubit()
+    public class Qubit : Vector
+    {
+        public static Qubit CreateInstance(Matrix state)
         {
-            _appliedGates = new Stack<Matrix>();
-            _state = new Matrix(2, 1);
-            Reset();
+            var qubit = new Qubit();
+            return qubit;
         }
-
-        public IEnumerable<Matrix> AppliedGates
+                       
+        public static Qubit Zero
         {
-            get => _appliedGates.AsEnumerable();
-        }
-        
-        public void Apply(params Matrix[] gates)
-        {
-            foreach (Matrix g in gates)
+            get
             {
-                _state = g * _state;       
-                _appliedGates.Push(g);
+                Matrix qubit = new Qubit()
+                qubit._state[0, 0] = ComplexNumber.One;
+                return qubit;
             }
         }
 
-        public void Undo()
+        public static Qubit One
         {
-            _state = _appliedGates.Pop() *  _state;
+            get
+            {
+                var qubit = new Qubit();
+                qubit._state[1, 0] = ComplexNumber.One;
+                return qubit;
+            }
         }
 
-        public void Reset()
+
+        private Qubit() : base(2)
         {
-            _state[0, 0] = new ComplexNumber(1, 0);
-            _appliedGates.Clear();
-        }
+           
+        }       
+        
+        public Qubit Apply(Matrix gate)
+        {
+            return this * gate;       
+        }       
 
         public override string ToString()
             => _state[0, 0].Real == 1D ? "|0>" : "|1>";

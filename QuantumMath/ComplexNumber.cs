@@ -1,23 +1,59 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Reflection.Metadata.Ecma335;
 
 namespace QuantumMath
 {
     public struct ComplexNumber
     {
+        #region Properties
+
         public double Real { get; }
         public double Imaginary { get; }
-
         public double Modulos
         {
             get => Math.Sqrt(Math.Pow(Real, 2) + Math.Pow(Imaginary, 2));
         }
 
-        public ComplexNumber(double realPart, double imaginaryPart)
+        #endregion
+
+        #region Ctors and Factories
+
+        private ComplexNumber(double realPart, double imaginaryPart)
         {
             Real = realPart;
             Imaginary = imaginaryPart;
         }
+
+        public static ComplexNumber Zero
+        {
+            get => new ComplexNumber();
+        }
+
+        public static ComplexNumber One
+        {
+            get => new ComplexNumber(1, 0);
+        }       
+
+        public static ComplexNumber CreateInstance(double realPart, double imaginaryPart)
+        {
+            return new ComplexNumber(realPart, imaginaryPart);
+        }
+
+        public static ComplexNumber[] CreateInstances(params double[] reals)
+        {
+            var list = new List<ComplexNumber>();
+            foreach (int i in reals)
+            {
+                list.Add(new ComplexNumber(i, 0));
+            }
+            return list.ToArray();
+        }
+
+        #endregion
+
+        #region Operator Overloads 
 
         public static ComplexNumber operator +(ComplexNumber lhs, ComplexNumber rhs) =>
              new ComplexNumber(lhs.Real + rhs.Real, lhs.Imaginary + rhs.Imaginary);
@@ -38,23 +74,20 @@ namespace QuantumMath
             return new ComplexNumber(realPart, imaginaryPart);
         }
 
-        public ComplexNumber GetConjugate() =>
-            new ComplexNumber(Real, (-1.0) * Imaginary);
-
-        public static ComplexNumber operator ^(ComplexNumber lhs, uint power)
-        {
-            var temp = lhs.ToPolarCoordinate().Pow(power);
-            return temp.ToComplexNumber();
-        }
-
         public static bool operator ==(ComplexNumber lhs, ComplexNumber rhs)
             => lhs.Real == rhs.Real && lhs.Imaginary == rhs.Imaginary;
 
         public static bool operator !=(ComplexNumber lhs, ComplexNumber rhs)
             => !(lhs.Real == rhs.Real && lhs.Imaginary == rhs.Imaginary);
 
-        public ComplexNumber Pow(uint power)
-         => this ^ power;
+        public static ComplexNumber operator ^(ComplexNumber lhs, uint power)
+            => lhs.ToPolarCoordinate().Pow(power).ToComplexNumber();
+
+        #endregion
+
+        #region Other Math functions
+        public ComplexNumber GetConjugate() 
+            => new ComplexNumber(Real, (-1.0) * Imaginary);
 
         public IEnumerable<ComplexNumber> NthRoot(uint root)
         {
@@ -65,6 +98,29 @@ namespace QuantumMath
             }
 
         }
+
+        #endregion
+
+        #region To Polar Coordinate
+
+        private static PolarCoordinate ToPolarCoordinate(ref ComplexNumber obj)
+        {
+            double magnitude = Math.Sqrt(Math.Pow(obj.Real, 2) + Math.Pow(obj.Imaginary, 2));
+
+            double phase = Math.Atan2(obj.Imaginary, obj.Real);
+
+            return new PolarCoordinate(magnitude, phase);
+        }
+
+        public PolarCoordinate ToPolarCoordinate() 
+            => ToPolarCoordinate(ref this);
+
+        public static explicit operator PolarCoordinate(ComplexNumber obj)
+            => ToPolarCoordinate(ref obj);
+
+        #endregion
+
+        #region Object overloads
 
         public override string ToString()
         {
@@ -91,29 +147,18 @@ namespace QuantumMath
             return retVal;
         }
 
-        static PolarCoordinate ToPolarCoordinate(ref ComplexNumber obj)
-        {
-            double magnitude = Math.Sqrt(Math.Pow(obj.Real, 2) + Math.Pow(obj.Imaginary, 2));
-
-            double phase = Math.Atan2(obj.Imaginary, obj.Real);
-
-            return new PolarCoordinate(magnitude, phase);
-        }
-
-        public PolarCoordinate ToPolarCoordinate() => ToPolarCoordinate(ref this);
-
-        public static explicit operator PolarCoordinate(ComplexNumber obj)
-            => ToPolarCoordinate(ref obj);
-
         public override bool Equals(object obj)
         {
-            return base.Equals(obj);
+            return obj is ComplexNumber number &&
+                   Real == number.Real &&
+                   Imaginary == number.Imaginary;
         }
-
 
         public override int GetHashCode()
         {
-            return base.GetHashCode();
+            return HashCode.Combine(Real, Imaginary);
         }
+
+        #endregion
     }
 }

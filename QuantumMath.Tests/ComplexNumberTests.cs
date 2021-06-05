@@ -10,12 +10,12 @@ namespace QuantumMath.Tests
         [Fact]
         public void ToPolarCoordinatTest()
         {
-            var c0 = new ComplexNumber(1, 1);
+            var c0 = ComplexNumber.CreateInstance(1, 1);
             var pc0 = c0.ToPolarCoordinate();
             Assert.Equal(Math.Sqrt(2), pc0.Modulos);
             Assert.Equal(Math.PI/4, pc0.Phase);
 
-            c0 = new ComplexNumber(3, 0);
+            c0 = ComplexNumber.CreateInstance(3, 0);
             pc0 = c0.ToPolarCoordinate();
             Assert.Equal(3, pc0.Modulos);
             Assert.Equal(Phase.ZeroPI, pc0.Phase);
@@ -24,7 +24,7 @@ namespace QuantumMath.Tests
         [Fact]
         public void ToPolarCoordinatConverter()
         {
-            var c0 = new ComplexNumber(realPart: -2, imaginaryPart: 0);
+            var c0 = ComplexNumber.CreateInstance(-2, 0);
             var pc0 = (PolarCoordinate)c0;
             Assert.Equal(2, pc0.Modulos);
             Assert.Equal(Phase.OnePI, pc0.Phase);
@@ -36,8 +36,8 @@ namespace QuantumMath.Tests
         [InlineData(2, -1, 1, 1, 3, 0)]
         public void AddOperatorTest(double r0, double i0,double r1,double i1, double r2,double i2)
         {
-            var c0 = new ComplexNumber(r0, i0);
-            var c1 = new ComplexNumber(r1, i1);
+            var c0 = ComplexNumber.CreateInstance(r0, i0);
+            var c1 = ComplexNumber.CreateInstance(r1, i1);
 
             var c2 = c0 + c1;
             Assert.Equal(r2, c2.Real);
@@ -48,8 +48,8 @@ namespace QuantumMath.Tests
         [InlineData(3, -1, 1, 4, 2, -5)]      // Exam: 
         public void SubtractionOperatorTest(double r0, double i0, double r1, double i1, double r2, double i2)
         {
-            var c0 = new ComplexNumber(r0, i0);
-            var c1 = new ComplexNumber(r1, i1);
+            var c0 = ComplexNumber.CreateInstance(r0, i0);
+            var c1 = ComplexNumber.CreateInstance(r1, i1);
 
             var c2 = c0 - c1;
             Assert.Equal(r2, c2.Real);
@@ -62,8 +62,8 @@ namespace QuantumMath.Tests
         [InlineData(3, -1, 1, 4, 7, 11)] // Exer 1.2.1
         public void MultiplicationOperatorTest(double r0, double i0, double r1, double i1, double r2, double i2)
         {
-            var c0 = new ComplexNumber(r0, i0);
-            var c1 = new ComplexNumber(r1, i1);
+            var c0 = ComplexNumber.CreateInstance(r0, i0);
+            var c1 = ComplexNumber.CreateInstance(r1, i1);
 
             var c2 = c0 * c1;
             Assert.Equal(r2, c2.Real);
@@ -75,8 +75,8 @@ namespace QuantumMath.Tests
         [InlineData(0, 3, -1, -1, -1.5, -1.5)]  // Exer. 1.2.3
         public void DivisiionOperatorTest(double r0, double i0, double r1, double i1, double r2, double i2)
         {
-            var c0 = new ComplexNumber(r0, i0);
-            var c1 = new ComplexNumber(r1, i1);
+            var c0 = ComplexNumber.CreateInstance(r0, i0);
+            var c1 = ComplexNumber.CreateInstance(r1, i1);
 
             var c2 = c0 / c1;
             Assert.Equal(r2, c2.Real);
@@ -86,7 +86,7 @@ namespace QuantumMath.Tests
         [Fact]
         public void GetConjugateTest()
         {
-            var c0  = new ComplexNumber(1, 1);
+            var c0  = ComplexNumber.CreateInstance(1, 1);
             var c1 = c0.GetConjugate();
 
             Assert.Equal(1, c1.Real);
@@ -96,7 +96,7 @@ namespace QuantumMath.Tests
         [Fact]  // Exer 1.2.4
         public void ModulosTest()
         {
-            var c0 = new ComplexNumber(4, -3);
+            var c0 = ComplexNumber.CreateInstance(4, -3);
 
             Assert.Equal(5, c0.Modulos);
         }
@@ -114,14 +114,14 @@ namespace QuantumMath.Tests
         [InlineData(-1, -2, "-1-2i")]
         public void ToStringTest(double real, double imaginary, string expected)
         {
-            var c = new ComplexNumber(real, imaginary);
+            var c = ComplexNumber.CreateInstance(real, imaginary);
             Assert.Equal(expected, c.ToString());
         }
 
         [Fact]
         public void NthRootTest()
         {
-            var cn = new ComplexNumber(1, 1);
+            var cn = ComplexNumber.CreateInstance(1, 1);
 
             var roots = cn.NthRoot(3).ToArray();
 
@@ -142,20 +142,9 @@ namespace QuantumMath.Tests
         [Fact]
         public void PowerOperatorTest()
         {
-            var pc0 = new ComplexNumber(1, -1);
+            var pc0 = ComplexNumber.CreateInstance(1, -1);
 
             var pc1 = pc0 ^ 5;
-
-            Assert.Equal(-4, Math.Round(pc1.Real, 4));
-            Assert.Equal(4, Math.Round(pc1.Imaginary, 4));
-        }
-
-        [Fact]
-        public void PowTest()
-        {
-            var pc0 = new ComplexNumber(1, -1);
-
-            var pc1 = pc0.Pow(5);
 
             Assert.Equal(-4, Math.Round(pc1.Real, 4));
             Assert.Equal(4, Math.Round(pc1.Imaginary, 4));
@@ -166,8 +155,8 @@ namespace QuantumMath.Tests
         [InlineData(3d, -2.5d)]
         public void EqualityOperatorTest(double real, double imaginary)
         {
-            var c0 = new ComplexNumber(real, imaginary);
-            var c1 = new ComplexNumber(real, imaginary);
+            var c0 = ComplexNumber.CreateInstance(real, imaginary);
+            var c1 = ComplexNumber.CreateInstance(real, imaginary);
 
             Assert.True(c0 == c1);
         }
@@ -175,8 +164,8 @@ namespace QuantumMath.Tests
         [Fact]
         public void InequalityOperatorTest()
         {
-            var c0 = new ComplexNumber(0d, 0d);
-            var c1 = new ComplexNumber(1d, 0d);
+            var c0 = ComplexNumber.CreateInstance(0d, 0d);
+            var c1 = ComplexNumber.CreateInstance(1d, 0d);
 
             Assert.True(c0 != c1);
         }

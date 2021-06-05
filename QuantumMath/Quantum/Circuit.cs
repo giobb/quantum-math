@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace QuantumMath.Quantum
 {
     public class Circuit
     {
-        IList<Qubit> _qubits = new List<Qubit>();
+        IList<Matrix> _qubits = new List<Matrix>();
         Matrix _state;
+        IList<IDictionary<int, Matrix>> _appliedGates;
+
+
     }
 }
