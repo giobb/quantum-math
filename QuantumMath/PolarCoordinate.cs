@@ -70,7 +70,7 @@ namespace QuantumMath
         {
             var x = GetX(ref obj);
             var y = GetY(ref obj);
-            return ComplexNumber.CreateInstance(x, y);
+            return new ComplexNumber(x, y);
         }
 
         static double GetX(ref PolarCoordinate obj)

@@ -16,12 +16,12 @@ namespace QuantumMath.Tests
         public void GetTranspose()
         {
             var target = new Matrix(1,1);
-            target[0, 0] = ComplexNumber.CreateInstance(1, 2);
+            target[0, 0] = new ComplexNumber(1, 2);
         }
 
 
         [Fact]
-        public void MultiplyXby1Qubit()
+        public void MultiplyXbyQubit_1()
         {
             var qbit = new Matrix(2,1);
             qbit[0, 0] = ComplexNumber.Zero;
@@ -31,24 +31,24 @@ namespace QuantumMath.Tests
 
             Assert.Equal(2u, res.Rows);
             Assert.Equal(1u, res.Cols);
-            Assert.Equal(0d, res[0, 0].Real);
+            Assert.Equal(0d, res[1, 0].Real);
             Assert.Equal(0d, res[0, 0].Imaginary);
-            Assert.Equal(1d, res[1, 0].Real);
+            Assert.Equal(1d, res[0, 0].Real);
             Assert.Equal(0d, res[1, 0].Imaginary);
         }
 
         [Fact]
-        public void MultiplyIBy1Qubit()
+        public void MultiplyIByQubit_1()
         {
             var qbit = new Matrix(2, 1);
-            qbit[0, 0] = ComplexNumber.One;
-            qbit[1, 0] = ComplexNumber.Zero; // 0 + 0i
+            qbit[0, 0] = ComplexNumber.Zero;
+            qbit[1, 0] = ComplexNumber.One; // 0 + 0i
 
             var res = I * qbit;
 
-            Assert.Equal(1d, res[0, 0].Real);
+            Assert.Equal(0d, res[0, 0].Real);
             Assert.Equal(0d, res[0, 0].Imaginary);
-            Assert.Equal(0d, res[1, 0].Real);
+            Assert.Equal(1d, res[1, 0].Real);
             Assert.Equal(0d, res[1, 0].Imaginary);
         }
 
@@ -63,7 +63,7 @@ namespace QuantumMath.Tests
             qbit1[0, 0] = ComplexNumber.One;
             qbit1[1, 0] = ComplexNumber.Zero;
 
-            var res = CNot * Ops.Tensor(qbit0,qbit1);
+            var res = qbit0.GetTensorProduct(qbit1);
             Assert.True(1 == res.Cols);
             Assert.True(4 == res.Rows);
 
@@ -90,7 +90,7 @@ namespace QuantumMath.Tests
             matrix1[1, 0] = ComplexNumber.Zero;
 
             // |00>
-            var res0 =  Ops.Tensor(matrix0,matrix1);
+            var res0 =  matrix0.GetTensorProduct(matrix1);
 
             Assert.Equal(1, res0[0, 0].Real);
             Assert.Equal(0, res0[0, 0].Imaginary);
@@ -106,7 +106,7 @@ namespace QuantumMath.Tests
             matrix2[1, 0] = ComplexNumber.One;
 
             // |001>
-            var res1 = Ops.Tensor(res0,matrix2);
+            var res1 = res0.GetTensorProduct(matrix2);
 
             Assert.Equal(0, res1[0, 0].Real);
             Assert.Equal(0, res1[0, 0].Imaginary);

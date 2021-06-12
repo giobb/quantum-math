@@ -22,16 +22,16 @@ namespace QuantumMath
 
         public Matrix(params double[][] rowValues)
         {
-            if (rowValues.Select(o => o.GetLength(1)).Distinct().Count() > 1)
+            if (rowValues.Select(o => o.Length).Distinct().Count() > 1)
                 throw new ArgumentException("Diferrent sizes");
 
-            Rows = (uint)rowValues.GetLength(0);
-            Cols = (uint)rowValues.GetLength(1);
+            Rows = (uint)rowValues.Length;
+            Cols = (uint)rowValues[0].Length;
 
             _array = new ComplexNumber[Rows, Cols];
 
             // TODO: Create rows here using new
-            for(int i = 0; i<rowValues.GetLength(0); i++)
+            for(int i = 0; i<rowValues.Length; i++)
             {
                 var row = rowValues[i];
                 var arrCN = ComplexNumber.CreateInstances(row);
@@ -153,5 +153,25 @@ namespace QuantumMath
                 return result;
             }
         }       
+
+        public Matrix GetTensorProduct(Matrix multiplier)
+        {
+            var lhs = this;
+            var rhs = multiplier;
+
+            var result = new Matrix(lhs.Rows * rhs.Rows, lhs.Cols * rhs.Cols);
+
+            for (uint i = 0; i < lhs.Rows; i++)
+                for (uint j = 0; j < rhs.Cols; j++)
+                    for (uint k = 0; k < rhs.Rows; k++)
+                        for (uint l = 0; l < rhs.Cols; l++)
+                        {
+                            var m = rhs.Rows * i + k;
+                            var n = rhs.Cols * j + l;
+                            result[m, n] = lhs[i, j] * rhs[k, l];
+                        }
+
+            return result;
+        }
     }
 }

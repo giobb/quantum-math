@@ -20,7 +20,7 @@ namespace QuantumMath
 
         #region Ctors and Factories
 
-        private ComplexNumber(double realPart, double imaginaryPart)
+        public ComplexNumber(double realPart, double imaginaryPart)
         {
             Real = realPart;
             Imaginary = imaginaryPart;
@@ -36,10 +36,10 @@ namespace QuantumMath
             get => new ComplexNumber(1, 0);
         }       
 
-        public static ComplexNumber CreateInstance(double realPart, double imaginaryPart)
-        {
-            return new ComplexNumber(realPart, imaginaryPart);
-        }
+        //public static ComplexNumber CreateInstance(double realPart, double imaginaryPart)
+        //{
+        //    return new ComplexNumber(realPart, imaginaryPart);
+        //}
 
         public static ComplexNumber[] CreateInstances(params double[] reals)
         {
